@@ -10,13 +10,14 @@
     <title>Like page</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="src/main/resources/templates/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="src/main/resources/templates/css/style.css">
 </head>
 <body style="background-color: #f5f5f5;">
 
+<form action="/users" method="post" id="like-form"></form>
 <div class="col-4 offset-4">
     <div class="card">
         <div class="card-body">
@@ -26,12 +27,15 @@
                     <h3 class="mb-0 text-truncated">User name</h3>
                     <br>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <button type="button" class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span> Dislike</button>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <button class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Like</button>
-                </div>
+                    <div class="col-12 col-lg-6">
+                        <button form="like-form" type="submit" value=0 name="dislike" class="btn btn-outline-danger btn-block" >
+                            <span class="fa fa-times"></span> Dislike</button>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <button form="like-form" type="submit" value=1 name="like" class="btn btn-outline-success btn-block">
+                            <span class="fa fa-heart"></span> Like</button>
+                    </div>
+
                 <!--/col-->
             </div>
             <!--/row-->
