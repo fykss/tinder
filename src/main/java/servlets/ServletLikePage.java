@@ -35,9 +35,5 @@ public class ServletLikePage extends HttpServlet {
         String dislike = req.getParameter("dislike");
 
         resp.sendRedirect("/users");
-
-        System.out.println(like);
-        System.out.println(dislike);
-
     }
 }

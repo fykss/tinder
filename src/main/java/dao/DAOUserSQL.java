@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class DAOUserSQL implements DAOUser<User> {
+public class DAOUserSQL implements DAO<User> {
 
     private Connection connection;
 
@@ -18,33 +18,31 @@ public class DAOUserSQL implements DAOUser<User> {
 
     @Override
     public User get(int id) {
-        return null;
+        String sql = String.format("SELECT * FROM vlad_users_tinder where id = %d", id);
+        User user = null;
+
+        try (PreparedStatement ps = (connection.prepareStatement(sql))) {
+            ResultSet resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String surname = resultSet.getString("surname");
+                String login = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                user = new User(name, surname, login, password);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
     }
 
     @Override
     public Collection<User> getAll() {
         return null;
     }
-
-    @Override
-    public boolean check(User user) {
-        boolean flag = false;
-        try (PreparedStatement ps = (connection.prepareStatement("SELECT email, password FROM vlad_users_tinder where email = ? and password = ?"))) {
-            ps.setString(1, user.getEmail());
-            ps.setString(2, user.getPassword());
-            ResultSet resultSet = ps.executeQuery();
-
-            while (resultSet.next()) {
-                String emailSql = resultSet.getString(1);
-                String passwordSql = resultSet.getString(2);
-                flag = user.getEmail().equals(emailSql) && user.getPassword().equals(passwordSql);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return flag;
-    }
-
 
     @Override
     public int getId(User user) {
@@ -60,5 +58,10 @@ public class DAOUserSQL implements DAOUser<User> {
             e.printStackTrace();
         }
         return user.getId();
+    }
+
+    @Override
+    public void put(User item) {
+
     }
 }

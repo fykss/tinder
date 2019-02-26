@@ -16,6 +16,13 @@ public class User implements Identifiable{
         this.password = password;
     }
 
+    public User(String name, String surname, String email, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+    }
+
     public User(String name, String surname, String photoURL, String work, String gender, String email, String password, int id, String lastLogin) {
         this.name = name;
         this.surname = surname;
