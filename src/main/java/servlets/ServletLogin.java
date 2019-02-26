@@ -2,11 +2,11 @@ package servlets;
 
 import dao.DAOUserSQL;
 import dto.User;
-import services.ServiceUser;
 import utils.DbConnection;
 import utils.FreeMarker;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +19,6 @@ import java.util.List;
 public class ServletLogin extends HttpServlet {
 
     private final FreeMarker freeMarker = new FreeMarker();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,11 +39,18 @@ public class ServletLogin extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+
         Connection connection = new DbConnection().connection();
-
         DAOUserSQL daoUserSQL = new DAOUserSQL(connection);
-        
+        User user = new User(email, password);
 
-        System.out.println(daoUserSQL.check(new User(email, password)));
+        if (daoUserSQL.check(user)) {
+            Cookie cookie = new Cookie("storeUser", Integer.toString(daoUserSQL.getId(user)));
+            resp.addCookie(cookie);
+            resp.sendRedirect("/users");
+        } else {
+            System.out.println("Enter correct data");
+            resp.sendRedirect("/login");
+        }
     }
 }

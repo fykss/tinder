@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class DAOUserSQL implements DAOUser <User> {
+public class DAOUserSQL implements DAOUser<User> {
 
     private Connection connection;
 
@@ -29,7 +29,7 @@ public class DAOUserSQL implements DAOUser <User> {
     @Override
     public boolean check(User user) {
         boolean flag = false;
-        try(PreparedStatement ps =(connection.prepareStatement("SELECT email, password FROM vlad_users_tinder where email = ? and password = ?"))) {
+        try (PreparedStatement ps = (connection.prepareStatement("SELECT email, password FROM vlad_users_tinder where email = ? and password = ?"))) {
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
             ResultSet resultSet = ps.executeQuery();
@@ -40,7 +40,7 @@ public class DAOUserSQL implements DAOUser <User> {
                 flag = user.getEmail().equals(emailSql) && user.getPassword().equals(passwordSql);
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
         return flag;
     }
@@ -48,6 +48,17 @@ public class DAOUserSQL implements DAOUser <User> {
 
     @Override
     public int getId(User user) {
-        return 0;
+        try {
+            PreparedStatement ps = connection.prepareStatement("select id from vlad_users_tinder where email = ? and password = ?");
+            ps.setString(1,user.getEmail());
+            ps.setString(2,user.getPassword());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                user.setId(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user.getId();
     }
 }
