@@ -44,6 +44,7 @@ public class ServletLogin extends HttpServlet {
 
         User user = new User(email, password);
 
+        resp.sendRedirect("/users");
 
 
 

@@ -11,6 +11,10 @@ public class ServiceUser {
     }
 
     public boolean userCheck(User user) {
-        return daoUser.get(user.getId()) != null;
+        return daoUser.get(daoUser.getId(user)) != null;
+    }
+
+    public boolean checkPassword(User user){
+        return daoUser.get(user.getId()).getPassword().equals(user.getPassword());
     }
 }

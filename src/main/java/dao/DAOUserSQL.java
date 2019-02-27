@@ -27,9 +27,9 @@ public class DAOUserSQL implements DAO<User> {
             if (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
-                String login = resultSet.getString("email");
+                String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
-                user = new User(name, surname, login, password);
+                user = new User(name, surname, email, password);
             }
 
         } catch (SQLException e) {
@@ -51,6 +51,7 @@ public class DAOUserSQL implements DAO<User> {
             ps.setString(1,user.getEmail());
             ps.setString(2,user.getPassword());
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()){
                 user.setId(rs.getInt(1));
             }
