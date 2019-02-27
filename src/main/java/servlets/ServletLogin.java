@@ -2,10 +2,12 @@ package servlets;
 
 import dao.DAOUserSQL;
 import dto.User;
+import services.ServiceCookie;
+import services.ServiceUser;
 import utils.DbConnection;
 import utils.FreeMarker;
+import utils.ParameterFromRequest;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ServletLogin extends HttpServlet {
-
     private final FreeMarker freeMarker = new FreeMarker();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HashMap<String, Object> data = new HashMap<>();
         List<String> fields = new ArrayList<>();
@@ -36,21 +37,13 @@ public class ServletLogin extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        Connection connection = new DbConnection().connection();
-        DAOUserSQL daoUserSQL = new DAOUserSQL(connection);
-        User user = new User(email, password);
+//        ServiceCookie serviceCookie = new ServiceCookie(req, resp);
+//        serviceCookie.addCookie(user.hashCode());
 
-        if (daoUserSQL.check(user)) {
-            Cookie cookie = new Cookie("storeUser", Integer.toString(daoUserSQL.getId(user)));
-            resp.addCookie(cookie);
-            resp.sendRedirect("/users");
-        } else {
-            System.out.println("Enter correct data");
-            resp.sendRedirect("/login");
-        }
+        resp.sendRedirect("/like");
     }
 }
