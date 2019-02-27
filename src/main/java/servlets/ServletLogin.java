@@ -4,6 +4,7 @@ import dao.DAOUserSQL;
 import dto.User;
 import utils.DbConnection;
 import utils.FreeMarker;
+import utils.ParameterFromRequest;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -36,21 +37,24 @@ public class ServletLogin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ParameterFromRequest parameter = new ParameterFromRequest(req);
+
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        Connection connection = new DbConnection().connection();
-        DAOUserSQL daoUserSQL = new DAOUserSQL(connection);
         User user = new User(email, password);
-        HashMap<String, Object> data = new HashMap<>();
 
-        if (daoUserSQL.check(user)) {
-            Cookie cookie = new Cookie("users", Integer.toString(daoUserSQL.getId(user)));
-            resp.addCookie(cookie);
-            resp.sendRedirect("/users");
-        } else {
-            System.out.println("Enter correct data");
-            freeMarker.render("login-error.ftl", data, resp);
-        }
+
+
+
+
+//        if (daoUserSQL.check(user)) {
+//            Cookie cookie = new Cookie("users", Integer.toString(daoUserSQL.getId(user)));
+//            resp.addCookie(cookie);
+//            resp.sendRedirect("/users");
+//        } else {
+//            System.out.println("Enter correct data");
+//            freeMarker.render("login-error.ftl", data, resp);
+//        }
     }
 }

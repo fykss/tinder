@@ -22,6 +22,5 @@ public class ParameterFromRequest {
             throw new NoParametersException(String.format("Parameter %s missing",name));
         }
         return req.getParameter(name);
-
     }
 }
