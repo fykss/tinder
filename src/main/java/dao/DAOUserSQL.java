@@ -46,6 +46,8 @@ public class DAOUserSQL implements DAO<User> {
 
     @Override
     public int getId(User user) {
+        int id = 0;
+
         try {
             PreparedStatement ps = connection.prepareStatement("select id from vlad_users_tinder where email = ? and password = ?");
             ps.setString(1,user.getEmail());
@@ -53,12 +55,12 @@ public class DAOUserSQL implements DAO<User> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
-                user.setId(rs.getInt(1));
+                id = rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user.getId();
+        return id;
     }
 
     @Override

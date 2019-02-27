@@ -2,6 +2,8 @@ package servlets;
 
 import dao.DAOUserSQL;
 import dto.User;
+import services.ServiceCookie;
+import services.ServiceUser;
 import utils.DbConnection;
 import utils.FreeMarker;
 import utils.ParameterFromRequest;
@@ -17,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ServletLogin extends HttpServlet {
-
     private final FreeMarker freeMarker = new FreeMarker();
 
     @Override
@@ -37,16 +38,13 @@ public class ServletLogin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ParameterFromRequest parameter = new ParameterFromRequest(req);
-
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        User user = new User(email, password);
+//        ServiceCookie serviceCookie = new ServiceCookie(req, resp);
+//        serviceCookie.addCookie(user.hashCode());
 
         resp.sendRedirect("/users");
-
-
 
 
 //        if (daoUserSQL.check(user)) {

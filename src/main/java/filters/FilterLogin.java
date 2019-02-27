@@ -47,7 +47,6 @@ public class FilterLogin implements Filter {
                 User user = new User(email, password);
 
                 if (!serviceUser.userCheck(user) || !serviceUser.checkPassword(user)) {
-
                     throw new LoginFailureException("Incorrect login or password");
                 }
 

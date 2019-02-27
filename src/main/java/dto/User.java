@@ -14,6 +14,7 @@ public class User implements Identifiable{
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+        this.id = getId();
     }
 
     public User(String name, String surname, String email, String password) {
@@ -32,7 +33,6 @@ public class User implements Identifiable{
         this.email = email;
         this.password = password;
         this.lastLogin = lastLogin;
-        id = hashCode();
     }
 
     public String getName() {
