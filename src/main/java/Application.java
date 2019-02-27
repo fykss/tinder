@@ -8,6 +8,7 @@ import services.ServiceUser;
 import servlets.ServletAssets;
 import servlets.ServletLikePage;
 import servlets.ServletLogin;
+import servlets.ServletPeopleList;
 import utils.DbConnection;
 
 import javax.servlet.DispatcherType;
@@ -23,7 +24,8 @@ public class Application {
         ServletContextHandler handler = new ServletContextHandler();
         handler.addServlet(ServletAssets.class, "/src/main/resources/templates/css/*");
         handler.addServlet(new ServletHolder(new ServletLogin()), "/login");
-        handler.addServlet(new ServletHolder(new ServletLikePage()), "/users");
+        handler.addServlet(new ServletHolder(new ServletLikePage()), "/like");
+        handler.addServlet(new ServletHolder(new ServletPeopleList()), "/users");
 
         handler.addFilter(new FilterHolder(new FilterLogin(serviceUser)), "/login/*", EnumSet.of(DispatcherType.INCLUDE,DispatcherType.REQUEST));
 

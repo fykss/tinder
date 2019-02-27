@@ -15,7 +15,7 @@ public class ServletLikePage extends HttpServlet {
     private final FreeMarker freeMarker = new FreeMarker();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HashMap<String, Object> data = new HashMap<>();
         List<String> fields = new ArrayList<>();
@@ -24,16 +24,16 @@ public class ServletLikePage extends HttpServlet {
         fields.add("dislike");
 
         data.put("like", fields);
-        data.put("rout", "/users");
+        data.put("rout", "/like");
 
         freeMarker.render("like-page.ftl", data, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String like = req.getParameter("like");
         String dislike = req.getParameter("dislike");
 
-        resp.sendRedirect("/users");
+        resp.sendRedirect("/like");
     }
 }

@@ -44,16 +44,6 @@ public class ServletLogin extends HttpServlet {
 //        ServiceCookie serviceCookie = new ServiceCookie(req, resp);
 //        serviceCookie.addCookie(user.hashCode());
 
-        resp.sendRedirect("/users");
-
-
-//        if (daoUserSQL.check(user)) {
-//            Cookie cookie = new Cookie("users", Integer.toString(daoUserSQL.getId(user)));
-//            resp.addCookie(cookie);
-//            resp.sendRedirect("/users");
-//        } else {
-//            System.out.println("Enter correct data");
-//            freeMarker.render("login-error.ftl", data, resp);
-//        }
+        resp.sendRedirect("/like");
     }
 }
