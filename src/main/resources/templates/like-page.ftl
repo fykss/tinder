@@ -17,7 +17,7 @@
 </head>
 <body style="background-color: #f5f5f5;">
 
-<form action="/like" method="post" id="like-form"></form>
+<form action="/users" method="post" id="like-form"></form>
 <div class="col-4 offset-4">
     <div class="card">
         <div class="card-body">

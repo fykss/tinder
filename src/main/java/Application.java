@@ -6,7 +6,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import services.ServiceUser;
 import servlets.ServletAssets;
-import servlets.ServletLikePage;
+import servlets.ServletLike;
 import servlets.ServletLogin;
 import servlets.ServletPeopleList;
 import utils.DbConnection;
@@ -24,8 +24,8 @@ public class Application {
         ServletContextHandler handler = new ServletContextHandler();
         handler.addServlet(ServletAssets.class, "/src/main/resources/templates/css/*");
         handler.addServlet(new ServletHolder(new ServletLogin(connection)), "/login");
-        handler.addServlet(new ServletHolder(new ServletLikePage()), "/like");
-        handler.addServlet(new ServletHolder(new ServletPeopleList()), "/users");
+        handler.addServlet(new ServletHolder(new ServletLike(connection)), "/users");
+        handler.addServlet(new ServletHolder(new ServletPeopleList()), "/liked");
 
         handler.addFilter(new FilterHolder(new FilterLogin(serviceUser)), "/login/*", EnumSet.of(DispatcherType.INCLUDE, DispatcherType.REQUEST));
 

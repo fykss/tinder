@@ -53,7 +53,7 @@ public class ServletLogin extends HttpServlet {
         if (id > 0) {
             Cookie cookie = new Cookie("user", Integer.toString(id));
             resp.addCookie(cookie);
-            resp.sendRedirect("/like");
+            resp.sendRedirect("/users");
         } else {
             resp.sendRedirect("/login");
 
