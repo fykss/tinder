@@ -1,6 +1,6 @@
 package dto;
 
-public class User implements Identifiable{
+public class User implements Identifiable {
     private String name;
     private String surname;
     private String photoURL;

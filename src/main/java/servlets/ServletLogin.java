@@ -19,7 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ServletLogin extends HttpServlet {
+    private ServiceUser serviceUser;
     private final FreeMarker freeMarker = new FreeMarker();
+    private Connection connection;
+
+    public ServletLogin(Connection connection) {
+        this.connection = connection;
+        this.serviceUser = new ServiceUser(new DAOUserSQL(connection));
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -41,9 +48,15 @@ public class ServletLogin extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-//        ServiceCookie serviceCookie = new ServiceCookie(req, resp);
-//        serviceCookie.addCookie(user.hashCode());
+        int id = serviceUser.getId(email, password);
 
-        resp.sendRedirect("/like");
+        if (id > 0) {
+            Cookie cookie = new Cookie("user", Integer.toString(id));
+            resp.addCookie(cookie);
+            resp.sendRedirect("/like");
+        } else {
+            resp.sendRedirect("/login");
+
+        }
     }
 }

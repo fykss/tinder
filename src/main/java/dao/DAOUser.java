@@ -2,7 +2,7 @@ package dao;
 
 import java.util.Collection;
 
-public interface DAO<T> {
+public interface DAOUser<T> {
     T get(int id);
     Collection<T> getAll();
 //    boolean check(T value);

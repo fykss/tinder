@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class DAOUserSQL implements DAO<User> {
+public class DAOUserSQL implements DAOUser<User> {
 
     private Connection connection;
 
@@ -50,11 +50,11 @@ public class DAOUserSQL implements DAO<User> {
 
         try {
             PreparedStatement ps = connection.prepareStatement("select id from vlad_users_tinder where email = ? and password = ?");
-            ps.setString(1,user.getEmail());
-            ps.setString(2,user.getPassword());
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPassword());
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
                 id = rs.getInt(1);
             }
         } catch (SQLException e) {
