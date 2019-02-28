@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-public class DAOUserSQL implements DAOUser<User> {
+public class DAOUserSQL implements DAO<User> {
 
     private Connection connection;
 

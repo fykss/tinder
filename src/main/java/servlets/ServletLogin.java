@@ -50,13 +50,8 @@ public class ServletLogin extends HttpServlet {
 
         int id = serviceUser.getId(email, password);
 
-        if (id > 0) {
-            Cookie cookie = new Cookie("user", Integer.toString(id));
-            resp.addCookie(cookie);
-            resp.sendRedirect("/users");
-        } else {
-            resp.sendRedirect("/login");
-
-        }
+        ServiceCookie serviceCookie = new ServiceCookie(req, resp);
+        serviceCookie.addCookie(id);
+        resp.sendRedirect("/users");
     }
 }

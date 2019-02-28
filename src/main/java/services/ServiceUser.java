@@ -1,29 +1,29 @@
 package services;
 
-import dao.DAOUser;
+import dao.DAO;
 import dto.User;
 
 public class ServiceUser {
-    private DAOUser<User> daoUser;
+    private DAO<User> dao;
 
-    public ServiceUser(DAOUser<User> daoUser) {
-        this.daoUser = daoUser;
+    public ServiceUser(DAO<User> dao) {
+        this.dao = dao;
     }
 
     public boolean userCheck(User user) {
-        return daoUser.get(daoUser.getId(user)) != null;
+        return dao.get(dao.getId(user)) != null;
     }
 
     public boolean checkPassword(User user) {
-        return daoUser.get(daoUser.getId(user)).getPassword().equals(user.getPassword());
+        return dao.get(dao.getId(user)).getPassword().equals(user.getPassword());
     }
 
     public User get(int id) {
-        return daoUser.get(id);
+        return dao.get(id);
     }
 
     public int getId(String mail, String password) {
         User user = new User(mail, password);
-        return daoUser.getId(user);
+        return dao.getId(user);
     }
 }
